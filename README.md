@@ -24,7 +24,7 @@ Q3 - Who won the first ACM Gerard Salton prize?
 
 ## Documentos
 
-[docs]https://github.com/FCLatorre/RAIvectorial/tree/develop/docrepository
+[docs](https://github.com/FCLatorre/RAIvectorial/tree/develop/docrepository)
 
 ## Funciones de similitud
 
