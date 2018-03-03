@@ -2,7 +2,7 @@
 
 ## Resumen
 
-**Univerisad:** Carlos III de Madrid
+**Universidad:** Universidad Carlos III de Madrid
 
 **Asignatura:** Recuperación y Acceso a la Información (RAI)
 
@@ -16,11 +16,11 @@
 
 ## Consultas
 
-Q1 - What video game won Spike's best driving game award in 2006?
+**Q1** - What video game won Spike's best driving game award in 2006?
 
-Q2 - What is the default combination of Kensington cables?
+**Q2** - What is the default combination of Kensington cables?
 
-Q3 - Who won the first ACM Gerard Salton prize?
+**Q3** - Who won the first ACM Gerard Salton prize?
 
 ## Documentos
 
