@@ -6,7 +6,6 @@ import sys
 
 nltk.download('punkt')
 
-
 class Controller:
         directory = ""
 
@@ -35,6 +34,9 @@ class Controller:
                 p = Path(self.directory)
                 for i in p.glob('*.*'):
                         print(i.name)
+                queryfile = open('queryfile.txt','r')
+                queryArray = queryfile.read().splitlines()
+                print(queryArray)
                 text = """Mis viejas preguntas no son nada
                  comparadas con una buena preguntas"""
                 print(word_tokenize(text))
