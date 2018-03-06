@@ -1,9 +1,6 @@
 class DBManager:
     def __init__(self):
-        print("DBManager init")
+        print("DBManager: Set up Database")
 
-    def sayHello(self, name):
-        if name is "":
-            print("hello world")
-        else:
-            print("hello ", name)
+    def save(self, term):
+        print("DBManager: asked me to save:", term)
