@@ -61,40 +61,44 @@ donde Wij = tfi,j * idfi = fi,j * log(N/ni)
 El output que se muestre por consola tendrá el siguiente formato (X,XX hace referencia a un número con dos cifras decimales):
 
 **RELEVANCIA: ProductoEscalarTF**
-| **Nombre del doc** | **Q1**   | **Q2**   | **Q3**   |
-|--------------------|----------|----------|----------|
-| 2010-22-100        | X,XX 	| X,XX 	   | X,XX     |
-| 2010-42-103        | X,XX 	| X,XX     | X,XX     |
-| 2010-58-044        | X,XX 	| X,XX     | X,XX     |
-| 2010-76-088        | X,XX 	| X,XX     | X,XX     |
-| 2010-99-086        | X,XX 	| X,XX     | X,XX     |
+
+| Nombre del doc | Q1   | Q2   | Q3   |
+|----------------|------|------|------|
+| 2010-22-100    | X,XX | X,XX | X,XX |
+| 2010-42-103    | X,XX | X,XX | X,XX |
+| 2010-58-044    | X,XX | X,XX | X,XX |
+| 2010-76-088    | X,XX | X,XX | X,XX |
+| 2010-99-086    | X,XX | X,XX | X,XX |
 
 **RELEVANCIA: ProductoEscalarTFIDF**
-| **Nombre del doc** | **Q1**   | **Q2**   | **Q3**   |
-|--------------------|----------|----------|----------|
-| 2010-22-100        | X,XX 	| X,XX 	   | X,XX     |
-| 2010-42-103        | X,XX 	| X,XX     | X,XX     |
-| 2010-58-044        | X,XX 	| X,XX     | X,XX     |
-| 2010-76-088        | X,XX 	| X,XX     | X,XX     |
-| 2010-99-086        | X,XX 	| X,XX     | X,XX     |
+
+| Nombre del doc | Q1   | Q2   | Q3   |
+|----------------|------|------|------|
+| 2010-22-100    | X,XX | X,XX | X,XX |
+| 2010-42-103    | X,XX | X,XX | X,XX |
+| 2010-58-044    | X,XX | X,XX | X,XX |
+| 2010-76-088    | X,XX | X,XX | X,XX |
+| 2010-99-086    | X,XX | X,XX | X,XX |
 
 **RELEVANCIA: CosenoTF**
-| **Nombre del doc** | **Q1**   | **Q2**   | **Q3**   |
-|--------------------|----------|----------|----------|
-| 2010-22-100        | X,XX 	| X,XX 	   | X,XX     |
-| 2010-42-103        | X,XX 	| X,XX     | X,XX     |
-| 2010-58-044        | X,XX 	| X,XX     | X,XX     |
-| 2010-76-088        | X,XX 	| X,XX     | X,XX     |
-| 2010-99-086        | X,XX 	| X,XX     | X,XX     |
+
+| Nombre del doc | Q1   | Q2   | Q3   |
+|----------------|------|------|------|
+| 2010-22-100    | X,XX | X,XX | X,XX |
+| 2010-42-103    | X,XX | X,XX | X,XX |
+| 2010-58-044    | X,XX | X,XX | X,XX |
+| 2010-76-088    | X,XX | X,XX | X,XX |
+| 2010-99-086    | X,XX | X,XX | X,XX |
 
 **RELEVANCIA: CosenoTFIDF**
-| **Nombre del doc** | **Q1**   | **Q2**   | **Q3**   |
-|--------------------|----------|----------|----------|
-| 2010-22-100        | X,XX 	| X,XX 	   | X,XX     |
-| 2010-42-103        | X,XX 	| X,XX     | X,XX     |
-| 2010-58-044        | X,XX 	| X,XX     | X,XX     |
-| 2010-76-088        | X,XX 	| X,XX     | X,XX     |
-| 2010-99-086        | X,XX 	| X,XX     | X,XX     |
+
+| Nombre del doc | Q1   | Q2   | Q3   |
+|----------------|------|------|------|
+| 2010-22-100    | X,XX | X,XX | X,XX |
+| 2010-42-103    | X,XX | X,XX | X,XX |
+| 2010-58-044    | X,XX | X,XX | X,XX |
+| 2010-76-088    | X,XX | X,XX | X,XX |
+| 2010-99-086    | X,XX | X,XX | X,XX |
 
 Para cada tupla de documento-consulta en la matriz, se debe mostrar el valor correspondiente.
 
