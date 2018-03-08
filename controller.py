@@ -1,22 +1,20 @@
-import nltk
-from nltk.tokenize import word_tokenize
 from pathlib import Path
 from dbmanager import DBManager
 from htmlparser import HTMLParser
-
-nltk.download('punkt')
-
+from normalizer import Normalizer
 
 class Controller:
         directory = ""
         manager = DBManager
         parser = HTMLParser
+        normalizer = Normalizer
 
         def __init__(self):
                 print("Controller init")
                 self.directory = "docrepository"
                 manager = DBManager()
                 parser = HTMLParser()
+                normalizer = Normalizer()
 
         def main(self):
                 print('Options: 1-setup 2-run 3-exit')
@@ -42,14 +40,14 @@ class Controller:
                                 filetext = self.parser.parse(self, file)
                                 #print(filetext)
                                 # Normalizer
-
-                                # Tokenizer
+                                normalized = self.normalizer.normalize(self.normalizer, filetext)
 
                                 # Save to DB
-                                fdist = nltk.FreqDist(word_tokenize(filetext))
+                                
                                 #print(fdist)
                                 # for term in fdist:
                                 # self.manager.save(self, term)
+                
                 queryfile = open('queryfile.txt', 'r')
                 queryArray = queryfile.read().splitlines()
                 print(queryArray)
