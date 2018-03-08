@@ -1,3 +1,4 @@
+
 # Modelo Vectorial - Especificaciones
 
 ## Resumen
@@ -144,10 +145,23 @@ Se deben normalizar las palabras en base a:
 
 ## Base de datos
 
-* Se trabajará con una base de datos MySQL
-* Se deben almacenar los valores de TF e IDF para cada término y documento
+* Se trabajará con una base de datos MongoDB
+* Se trabajará con 3 tablas principales:
+	* Documento
+	* Término
+	* Relación
+* Documento
+	* doc_id
+	* nombre
+* Término
+	* term_id
+	* idf
+	* ni
+* Relación
+	* doc_id
+	* term_id
+	* tf
 
-> Pendiente de determinar la estructura de la base de datos
 
 ## Otros
 
@@ -159,8 +173,8 @@ Se deben normalizar las palabras en base a:
 * Se permite y aconseja el uso de librerías para realizar los procesos de parseo, tokenización, normalización etc.
 * No se permiten librerías externas para la creación directa del índice ni para el cálculo de la similitud entre los documentos y las consultas
 * El tiempo de ejecución del script (1er paso) debe ser inferior a 10 segundos y el tiempo de ejecución del script (2do paso) debe ser inferior a 1 segundo
-* El script debe estar preparado para funcionar con más documentos HTML de forma automática
-* El script debe estar prepardo para funcionar con más consultas de forma automática
+* El script debe estar preparado para funcionar con más documentos HTML (+2000) de forma automática
+* El script debe estar prepardo para funcionar con más consultas (+20) de forma automática
 * El código debe estar correctamente comentado
 
 ## Recursos
