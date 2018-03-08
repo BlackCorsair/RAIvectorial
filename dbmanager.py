@@ -1,6 +1,44 @@
+from pymongo import MongoClient
+
+
 class DBManager:
+    client = 1
+    db = 1
+    docs = 1
+    terms = 1
+    relations = 1
+
     def __init__(self):
         print("DBManager: Set up Database")
+        self.client = MongoClient('172.17.0.2:27017')
+        self.db = self.client.db
+        self.docs = self.db.docs
+        self.terms = self.db.terms
+        self.relations = self.db.relations
+
+        '''
+            docs {
+                'doc': {
+                    'name': 'doc'
+                }
+            }
+            ____
+            terms {
+                'term': {
+                    'term':'term',
+                    'ni': 10,
+                }
+            ____
+            relations {
+                'relation': {
+                    'doc': 'doc',
+                    'term': 'term',
+                    'tf': 3
+                }
+
+            }
+            }
+        '''
 
     '''
         Name: saveTerm
@@ -22,7 +60,7 @@ class DBManager:
     '''
 
     def saveDoc(self, doc):
-        print("DBManager: asked me to save:", doc)
+        self.docs.update({"name": doc}, {"name": doc}, upsert=True)
 
     '''
         Name: saveRelation
