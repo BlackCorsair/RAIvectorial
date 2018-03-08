@@ -54,14 +54,19 @@ class DBManager:
     '''
         Name: saveDoc
         Input: doc (string)
-        Ouput: if correct execution returns '1',
+        Ouput: if correct execution returns 1
                if error returns '-1'
         Function: saves the doc given
     '''
 
     def saveDoc(self, doc):
-        self.docs.update({"name": doc}, {"name": doc}, upsert=True)
-
+        try:
+            self.docs.update({"name": doc},
+                             {"name": doc}, upsert=True)
+            return 1
+        except Exception as e:
+            print(e)
+            return -1
     '''
         Name: saveRelation
         Input: relation, where relation is a dict 'document:term'
