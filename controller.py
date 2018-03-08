@@ -34,20 +34,20 @@ class Controller:
         def setup(self):
                 print("Found the following files:")
                 p = Path(self.directory)
-                for i in p.iterdir():  # glob('*.*'):
+                for i in p.iterdir():
                         print("Working on file:", i.name)
-                        path = Path.cwd().joinpath(self.directory +
-                                                   "\\" + i.name)
-                        with path.open('r', encoding='utf-8',
-                                       errors='replace') as file:
+                        path = Path.cwd().joinpath(self.directory + "/" + i.name)
+                        with path.open('r') as file:
                                 # Parser
                                 filetext = self.parser.parse(self, file)
+                                #print(filetext)
                                 # Normalizer
+
                                 # Tokenizer
+
                                 # Save to DB
-                                print(filetext)
                                 fdist = nltk.FreqDist(word_tokenize(filetext))
-                                print(fdist)
+                                #print(fdist)
                                 # for term in fdist:
                                 # self.manager.save(self, term)
                 queryfile = open('queryfile.txt', 'r')
