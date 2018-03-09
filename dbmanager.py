@@ -134,7 +134,12 @@ class DBManager:
     '''
 
     def getTF(self, relation):
-        print("TF from " + str(relation) + " is --TF--")
+        try:
+            return self.relations.find_one({'doc': relation['doc'],
+                                            'term': relation['term']})['tf']
+        except Exception as e:
+            print(e)
+            return -1
 
     '''
         Name: getTerm
