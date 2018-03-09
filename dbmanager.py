@@ -113,13 +113,17 @@ class DBManager:
     '''
         Name: getIDF
         Input: term (string)
-        Output: float value, if error returns '-1'
+        Output: float value containing the idf, if error returns '-1'
         Function: given a term, 'getIDF' will search in
                  the DB the term and return the IDF
     '''
 
     def getIDF(self, term):
-        print("TF from " + str(term) + " is --IDF--")
+        try:
+            return self.terms.find_one({'term': term})['idf']
+        except Exception as e:
+            print(e)
+            return -1
 
     '''
         Name: getTF
