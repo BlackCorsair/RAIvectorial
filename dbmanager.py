@@ -127,7 +127,7 @@ class DBManager:
 
     '''
         Name: getTF
-        Input: relation, where relation is a dict 'document:term'
+        Input: relation, where relation is a dict {'doc: doc', 'term': 'term'}
         Output: float value, if error returns '-1'
         Function: given a relation, 'getTF' will search in
                  the DB the relation and return the TF
