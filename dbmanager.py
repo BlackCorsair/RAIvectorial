@@ -85,22 +85,30 @@ class DBManager:
 
     def saveDoc(self, doc):
         try:
-            self.docs.update({"name": doc},
-                             {"name": doc}, upsert=True)
+            self.docs.update({'name': doc},
+                             {'$setOnInsert': {'name': doc}}, upsert=True)
             return 1
         except Exception as e:
             print(e)
             return -1
     '''
         Name: saveRelation
-        Input: relation, where relation is a dict 'document:term'
+        Input: relation, where relation is a dict {'doc: doc', 'term': 'term'}
+              and tf, where tf is the tf of the given relation
         Ouput: if correct execution returns '1',
                if error returns '-1'
         Function: saves the relation given
     '''
 
-    def saveRelation(self, relation):
-        print("DBManager: asked me to save:", relation)
+    def saveRelation(self, relation, tf):
+        try:
+            self.relations.update({'doc': relation['doc'],
+                                   'term': relation['term']},
+                                  {'$set': {'tf': tf}}, upsert=True)
+            return 1
+        except Exception as e:
+            print(e)
+            return -1
 
     '''
         Name: getIDF
