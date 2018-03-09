@@ -1,4 +1,4 @@
-from pymongo import MongoClient
+from pymongo import MongoClient, UpdateOne
 
 
 class DBManager:
@@ -27,6 +27,7 @@ class DBManager:
                 'term': {
                     'term':'term',
                     'ni': 10,
+                    'idf': 10
                 }
             ____
             relations {
@@ -39,7 +40,6 @@ class DBManager:
             }
             }
         '''
-
     '''
         Name: saveTerm
         Input: term (string)
@@ -49,7 +49,31 @@ class DBManager:
     '''
 
     def saveTerm(self, term):
-        print("DBManager: asked me to save:", term)
+        requests = [
+            UpdateOne({'term': term},
+                      {'$setOnInsert': {'term': term,
+                                        'idf': 0, 'ni': 0}},
+                      upsert=True),
+            UpdateOne({'term': term},
+                      {'$inc': {'ni': 1}},
+                      upsert=True)]
+        try:
+            self.terms.bulk_write(requests)
+            return 1
+        except Exception as e:
+            print(e)
+            return -1
+    '''
+        Name: saveTerms
+        Input: term (string) array
+        Ouput: if correct execution returns '1',
+               if error returns '-1'
+        Function: saves the terms given in the array
+    '''
+
+    def saveTerms(self, terms):
+        for term in terms:
+            self.saveTerm(term)
 
     '''
         Name: saveDoc
