@@ -140,3 +140,14 @@ class DBManager:
         except Exception as e:
             print(e)
             return -1
+
+    '''
+        Name: updateIDF
+        Input: none
+        Output: returns 1 if correct execution,
+                returns -1 if error
+        Function: updates the idf value in all the terms
+    '''
+
+    def updateIDF(self):
+        print("updating the idf value in all terms...")
