@@ -140,14 +140,3 @@ class DBManager:
         except Exception as e:
             print(e)
             return -1
-
-    '''
-        Name: getTerm
-        Input: term
-        Output: term dict, if error returns 'error':'-1'
-        Function: given a term, 'getTerm' will return all
-                 the information of the term
-    '''
-
-    def getTerm(self, term):
-        print("Term data of " + str(term))
