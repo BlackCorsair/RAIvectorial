@@ -28,8 +28,7 @@ class Normalizer:
         #print ("Normalized words",filteredWords)        
         fdist = nltk.FreqDist(filteredWords)
         #print ("Original FreqDist: ", nltk.FreqDist(tokenizetext),"; Normalizer FreqDist:",fdist)
-        
-        return filteredWords
+        return fdist
 
     def isNotStoppedWord(self, word):
         stopWords = set(stopwords.words('english')).union(['...', '\'s','--','``']);

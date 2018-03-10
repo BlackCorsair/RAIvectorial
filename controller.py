@@ -43,7 +43,11 @@ class Controller:
                                 # Normalizer
                                 normalized = self.normalizer.normalize(self.normalizer, filetext)
                                 # Save to DB
-
+                                if self.manager.saveDoc(self.manager, i.name)==1:
+                                        for term in normalized:
+                                                print("Term ", term, " appears ", normalized[term])
+                                                if self.manager.saveTerm(self.manager, term) == 1:
+                                                        print("Save relation")
                                 # for term in fdist:
                                 # self.manager.save(self, term)
                 
