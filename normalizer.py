@@ -4,27 +4,38 @@ from nltk.corpus import stopwords
 
 class Normalizer:
     stopWords = []
-    symbols = "!@#$~%^&*()_-+={}[]/.,;|"
+    symbols = "\'!@#$~%^&*<>()_-+={}[]/.:,;|\"`"
     def __init__(self):
         print("Normalizer init")
         nltk.download('punkt')
         nltk.download('stopwords')
-        stopWords = set(stopwords.words('english'))
+        self.stopWords = set(stopwords.words('english'))
 
     def normalize(self, text):
         #Remove stopwords
         tokenizetext = word_tokenize(text)
+        #print("Original text: ", tokenizetext)
         filteredWords = []
 
         for w in tokenizetext:
-            if not self.isStoppedWord(self,w):
+            if self.isNotStoppedWord(self,w):
+                #print("This is not a stopword:", w)
                 filteredWords.append(w)
 
-        print ("Normalized words",filteredWords)        
+        #print ("Normalized words",filteredWords)        
         fdist = nltk.FreqDist(filteredWords)
-        print ("Normalizer FreqDist:",fdist)
+        #print ("Original FreqDist: ", nltk.FreqDist(tokenizetext),"; Normalizer FreqDist:",fdist)
         
         return filteredWords
 
-    def isStoppedWord(self, word):
-        return word in self.stopWords or word in self.symbols
+    def isNotStoppedWord(self, word):
+        stopWords = set(stopwords.words('english')).union(['...', '\'s','--','``']);
+        #print("isNotStoppedWord: word ", word)
+        if(word.lower() in stopWords):
+            #print("Word ", word.lower(), " is a stoppedWord")
+            return False
+        elif(word in self.symbols):
+            #print("Word ", word, " is a symbol")
+            return False
+        else:
+            return True
