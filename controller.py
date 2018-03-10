@@ -49,7 +49,8 @@ class Controller:
                 
                 queryfile = open('queryfile.txt', 'r')
                 queryArray = queryfile.read().splitlines()
-                print(queryArray)
+                for query in queryArray:
+                        normalized = self.normalizer.normalize(self.normalizer, query)
 
         def displayResults(self):
                 print("display Results Method!")

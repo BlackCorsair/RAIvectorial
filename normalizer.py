@@ -1,26 +1,29 @@
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
+from nltk.stem.wordnet import WordNetLemmatizer
 
 class Normalizer:
     stopWords = []
-    symbols = "\'!@#$~%^&*<>()_-+={}[]/.:,;|\"`"
+    symbols = "\'!?@#$~%^&*<>()_-+={}[]/.:,;|\"`"
     def __init__(self):
         print("Normalizer init")
         nltk.download('punkt')
+        nltk.download('wordnet')
         nltk.download('stopwords')
         self.stopWords = set(stopwords.words('english'))
 
     def normalize(self, text):
         #Remove stopwords
         tokenizetext = word_tokenize(text)
+        lem = WordNetLemmatizer()
         #print("Original text: ", tokenizetext)
         filteredWords = []
 
         for w in tokenizetext:
             if self.isNotStoppedWord(self,w):
                 #print("This is not a stopword:", w)
-                filteredWords.append(w)
+                filteredWords.append(lem.lemmatize(w.lower()))
 
         #print ("Normalized words",filteredWords)        
         fdist = nltk.FreqDist(filteredWords)
