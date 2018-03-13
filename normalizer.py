@@ -6,7 +6,8 @@ from nltk.stem.wordnet import WordNetLemmatizer
 
 class Normalizer:
     stopWords = []
-    symbols = "\'!?@#$~%^&*<>()_-+={}[]/.:,;|\"`"
+    symbols = ['\'','!','?','@','#','$','~','%','^','&','*','<','>','(',')','_','-','+','=',
+    '{','}','[',']','/','.',':',',',';','|','\"','`','“','”','--','©','®','¦','..','‘','’','\'\'']
 
     def __init__(self):
         print("Normalizer init")
@@ -25,6 +26,14 @@ class Normalizer:
         for w in tokenizetext:
             if self.isNotStoppedWord(w):
                 # print("This is not a stopword:", w)
+                #Remove quotation or symbol 
+                if w.startswith('\''):
+                    w = w.replace('\'','')
+                if w.endswith('\''):
+                    w = w.replace('\'','')
+                if w.endswith('�'):
+                    w = w.replace('�','')
+                #Remove slash
                 filteredWords.append(lem.lemmatize(w.lower()))
 
         # print ("Normalized words",filteredWords)
