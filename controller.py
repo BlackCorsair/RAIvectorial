@@ -3,7 +3,9 @@ from pathlib import Path
 from dbmanager import DBManager
 from htmlparser import HTMLParser
 from normalizer import Normalizer
-
+from tabulate import tabulate
+from random import randint
+from collections import OrderedDict
 
 class Controller:
     directory = ""
@@ -49,20 +51,44 @@ class Controller:
                             self.manager.saveRelation(relation, normalized[term])
         self.manager.updateIDF()
 
+    def computeTable (self, queryArray, table, method):
+        p = Path(self.directory)
+        table['Files'] = p.iterdir()
+        count = 1
+        for query in queryArray:
+            index = 'Q'+str(count)
+            normalized = self.normalizer.normalize(query)
+            array=[]
+            for file in p.iterdir():
+                #Llamar a método de Producto escalar
+                array.append(randint(0,9))#PETF.sim(file.name, normalized))
+            table[index] = array
+            count = count + 1
+        return table
+
     def displayResults(self):
         queryfile = open('queryfile.txt', 'r')
         queryArray = queryfile.read().splitlines()
+        table = OrderedDict()
+
         print("RELEVANCIA: ProductoEscalarTF")
-        for query in queryArray:
-            print(query)
-            normalized = self.normalizer.normalize(query)
-            for term in normalized:
-                print("Term ", term, " appears ", normalized[term])
+        table = self.computeTable(queryArray, table, 1)
+        print(tabulate(table, headers="keys"))
+        print()
+
         print("RELEVANCIA: ProductoEscalarTFIDF")
+        table = self.computeTable(queryArray, table, 2)
+        print(tabulate(table, headers="keys"))
+        print()
 
         print("RELEVANCIA: CosenoTF")
-
+        table = self.computeTable(queryArray, table, 3)
+        print(tabulate(table, headers="keys"))
+        print()
+        
         print("RELEVANCIA: CosenoTFIDF")
+        table = self.computeTable(queryArray, table, 4)
+        print(tabulate(table, headers="keys"))
 
 controller = Controller()
 controller.main()
