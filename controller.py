@@ -7,9 +7,9 @@ from normalizer import Normalizer
 
 class Controller:
     directory = ""
-    manager = DBManager
-    parser = HTMLParser
-    normalizer = Normalizer
+    manager = DBManager()
+    parser = HTMLParser()
+    normalizer = Normalizer()
 
     def __init__(self):
         print("Controller init")
@@ -40,24 +40,24 @@ class Controller:
                                        "/" + i.name)
             with path.open('r') as file:
                 # Parser
-                filetext = self.parser.parse(self, file)
+                filetext = self.parser.parse(file)
                 # print(filetext)
                 # Normalizer
                 normalized = self.normalizer.normalize(
-                    self.normalizer, filetext)
+                    filetext)
                 # Save to DB
-                if self.manager.saveDoc(self.manager, i.name) == 1:
+                if self.manager.saveDoc(i.name) == 1:
                     for term in normalized:
                         print("Term ", term, " appears ", normalized[term])
-                        if self.manager.saveTerm(self.manager, term) == 1:
+                        if self.manager.saveTerm(term) == 1:
                             print("Save relation")
                 # for term in fdist:
-                # self.manager.save(self, term)
+                # self.manager.save(term)
 
         queryfile = open('queryfile.txt', 'r')
         queryArray = queryfile.read().splitlines()
         for query in queryArray:
-            normalized = self.normalizer.normalize(self.normalizer, query)
+            normalized = self.normalizer.normalize(query)
 
     def displayResults(self):
         print("display Results Method!")

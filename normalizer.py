@@ -3,9 +3,11 @@ from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem.wordnet import WordNetLemmatizer
 
+
 class Normalizer:
     stopWords = []
     symbols = "\'!?@#$~%^&*<>()_-+={}[]/.:,;|\"`"
+
     def __init__(self):
         print("Normalizer init")
         nltk.download('punkt')
@@ -14,30 +16,32 @@ class Normalizer:
         self.stopWords = set(stopwords.words('english'))
 
     def normalize(self, text):
-        #Remove stopwords
+        # Remove stopwords
         tokenizetext = word_tokenize(text)
         lem = WordNetLemmatizer()
-        #print("Original text: ", tokenizetext)
+        # print("Original text: ", tokenizetext)
         filteredWords = []
 
         for w in tokenizetext:
-            if self.isNotStoppedWord(self,w):
-                #print("This is not a stopword:", w)
+            if self.isNotStoppedWord(w):
+                # print("This is not a stopword:", w)
                 filteredWords.append(lem.lemmatize(w.lower()))
 
-        #print ("Normalized words",filteredWords)        
+        # print ("Normalized words",filteredWords)
         fdist = nltk.FreqDist(filteredWords)
-        #print ("Original FreqDist: ", nltk.FreqDist(tokenizetext),"; Normalizer FreqDist:",fdist)
+        # print ("Original FreqDist: ",
+        # nltk.FreqDist(tokenizetext),"; Normalizer FreqDist:",fdist)
         return fdist
 
     def isNotStoppedWord(self, word):
-        stopWords = set(stopwords.words('english')).union(['...', '\'s','--','``']);
-        #print("isNotStoppedWord: word ", word)
+        stopWords = set(stopwords.words('english')).union(
+            ['...', '\'s', '--', '``'])
+        # print("isNotStoppedWord: word ", word)
         if(word.lower() in stopWords):
-            #print("Word ", word.lower(), " is a stoppedWord")
+            # print("Word ", word.lower(), " is a stoppedWord")
             return False
         elif(word in self.symbols):
-            #print("Word ", word, " is a symbol")
+            # print("Word ", word, " is a symbol")
             return False
         else:
             return True

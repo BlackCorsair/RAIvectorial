@@ -90,6 +90,8 @@ class DBManager:
                              {'$setOnInsert': {'name': doc}}, upsert=True)
             return 1
         except Exception as e:
+            print(self.docs)
+            print('SaveDoc: An error ocurred:')
             print(e)
             return -1
     '''
