@@ -1,4 +1,5 @@
 import nltk
+import re
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 from nltk.stem.wordnet import WordNetLemmatizer
@@ -33,13 +34,23 @@ class Normalizer:
                     w = w.replace('\'','')
                 if w.endswith('�'):
                     w = w.replace('�','')
-                #Remove slash
-                filteredWords.append(lem.lemmatize(w.lower()))
+                if w.endswith('/'):
+                    w = w.replace('/','')
+                #Remove slash and append both words
+                pattern = re.compile('^[a-zA-Z]+\/[a-zA-Z]+')
+                if pattern.match(w): 
+                    x = w.split('/')
+                    filteredWords.append(x[0].lower())
+                    filteredWords.append(x[1].lower())
+                else:
+                    filteredWords.append(lem.lemmatize(w.lower()))
 
         # print ("Normalized words",filteredWords)
         fdist = nltk.FreqDist(filteredWords)
         # print ("Original FreqDist: ",
         # nltk.FreqDist(tokenizetext),"; Normalizer FreqDist:",fdist)
+        for term in fdist:
+            print(term)
         return fdist
 
     def isNotStoppedWord(self, word):
