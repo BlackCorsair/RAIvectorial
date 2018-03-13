@@ -50,7 +50,8 @@ class Controller:
                     for term in normalized:
                         print("Term ", term, " appears ", normalized[term])
                         if self.manager.saveTerm(term) == 1:
-                            print("Save relation")
+                            relation = {'doc':i.name, 'term': term}
+                            self.manager.saveRelation(relation, normalized[term])
                 # for term in fdist:
                 # self.manager.save(term)
 
