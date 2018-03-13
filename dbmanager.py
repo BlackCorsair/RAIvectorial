@@ -163,3 +163,21 @@ class DBManager:
                                   upsert=True)
         except Exception as e:
             print(e)
+
+    '''
+        Name: cleanDB
+        Input: none
+        Output: returns 1 if correct execution,
+                returns -1 if error
+        Function: removes all collections in DB
+    '''
+
+    def cleanDB(self):
+        try:
+            self.db.drop_collection('docs')
+            self.db.drop_collection('terms')
+            self.db.drop_collection('relations')
+            return 1
+        except Exception as e:
+            print(e)
+            return -1
