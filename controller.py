@@ -14,9 +14,6 @@ class Controller:
     def __init__(self):
         print("Controller init")
         self.directory = "docrepository"
-        manager = DBManager()
-        parser = HTMLParser()
-        normalizer = Normalizer()
 
     def main(self):
         print('Options: 1-setup 2-run 3-exit')
@@ -41,28 +38,31 @@ class Controller:
             with path.open('r') as file:
                 # Parser
                 filetext = self.parser.parse(file)
-                # print(filetext)
                 # Normalizer
                 normalized = self.normalizer.normalize(
                     filetext)
                 # Save to DB
                 if self.manager.saveDoc(i.name) == 1:
                     for term in normalized:
-                        print("Term ", term, " appears ", normalized[term])
                         if self.manager.saveTerm(term) == 1:
                             relation = {'doc':i.name, 'term': term}
                             self.manager.saveRelation(relation, normalized[term])
-                # for term in fdist:
-                # self.manager.save(term)
-
-        queryfile = open('queryfile.txt', 'r')
-        queryArray = queryfile.read().splitlines()
-        for query in queryArray:
-            normalized = self.normalizer.normalize(query)
+        self.manager.updateIDF()
 
     def displayResults(self):
-        print("display Results Method!")
+        queryfile = open('queryfile.txt', 'r')
+        queryArray = queryfile.read().splitlines()
+        print("RELEVANCIA: ProductoEscalarTF")
+        for query in queryArray:
+            print(query)
+            normalized = self.normalizer.normalize(query)
+            for term in normalized:
+                print("Term ", term, " appears ", normalized[term])
+        print("RELEVANCIA: ProductoEscalarTFIDF")
 
+        print("RELEVANCIA: CosenoTF")
+
+        print("RELEVANCIA: CosenoTFIDF")
 
 controller = Controller()
 controller.main()
