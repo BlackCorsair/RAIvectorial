@@ -14,7 +14,7 @@ from math import sqrt
             the collection relations from the DB
            docs, which is a DBManager object which can access
             the collection documents from the DB
-    Output: TF scalar product (float)
+    Output: a list of dict {'doc': docname, 'scalarTF': value}
     Function: the function run the following calculation
              (sim(dj,q) = dj * q = Σ Wij * Wiq),
              getting the TF values for earch term in the given
@@ -40,5 +40,5 @@ def calcTF(query, relations, docs):
         except ZeroDivisionError:
             tf_cos_div = 0
             cosTF = 0
-        tf_total.append({'doc': doc['name'], 'cosTF': cosTF})
+        tf_total.append({'doc': doc['name'], 'scalarTF': cosTF})
     return tf_total
