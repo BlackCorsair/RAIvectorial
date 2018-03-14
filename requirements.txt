@@ -1,1 +1,5 @@
 NLTK
+pymongo
+bs4
+lxml
+tabulate
