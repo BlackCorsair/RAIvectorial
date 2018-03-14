@@ -18,30 +18,6 @@ class DBManager:
         self.terms = self.db.terms
         self.relations = self.db.relations
 
-        '''
-            docs {
-                'doc': {
-                    'name': 'doc'
-                }
-            }
-            ____
-            terms {
-                'term': {
-                    'term':'term',
-                    'ni': 10,
-                    'idf': 10
-                }
-            ____
-            relations {
-                'relation': {
-                    'doc': 'doc',
-                    'term': 'term',
-                    'tf': 3
-                }
-
-            }
-            }
-        '''
     '''
         Name: saveTerm
         Input: term (string)
