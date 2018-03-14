@@ -7,8 +7,11 @@ from nltk.stem.wordnet import WordNetLemmatizer
 
 class Normalizer:
     stopWords = []
-    symbols = ['\'','!','?','@','#','$','~','%','^','&','*','<','>','(',')','_','-','+','=',
-    '{','}','[',']','/','.',':',',',';','|','\"','`','“','”','--','©','®','¦','..','‘','’','\'\'']
+    symbols = ['\'', '!', '?', '@', '#', '$', '~', '%', '^',
+               '&', '*', '<', '>', '(', ')', '_', '-', '+', '=',
+               '{', '}', '[', ']', '/', '.', ':', ',', ';', '|',
+               '\"', '`', '“', '”', '--', '©', '®', '¦', '..',
+               '‘', '’', '\'\'']
 
     def __init__(self):
         print("Normalizer init")
@@ -27,18 +30,18 @@ class Normalizer:
         for w in tokenizetext:
             if self.isNotStoppedWord(w):
                 # print("This is not a stopword:", w)
-                #Remove quotation or symbol 
+                # Remove quotation or symbol
                 if w.startswith('\''):
-                    w = w.replace('\'','')
+                    w = w.replace('\'', '')
                 if w.endswith('\''):
-                    w = w.replace('\'','')
+                    w = w.replace('\'', '')
                 if w.endswith('�'):
-                    w = w.replace('�','')
+                    w = w.replace('�', '')
                 if w.endswith('/'):
-                    w = w.replace('/','')
-                #Remove slash and append both words
+                    w = w.replace('/', '')
+                # Remove slash and append both words
                 pattern = re.compile('^[a-zA-Z]+\/[a-zA-Z]+')
-                if pattern.match(w): 
+                if pattern.match(w):
                     x = w.split('/')
                     filteredWords.append(x[0].lower())
                     filteredWords.append(x[1].lower())

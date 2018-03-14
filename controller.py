@@ -7,6 +7,7 @@ from tabulate import tabulate
 from random import randint
 from collections import OrderedDict
 
+
 class Controller:
     directory = ""
     manager = DBManager()
@@ -47,21 +48,22 @@ class Controller:
                 if self.manager.saveDoc(i.name) == 1:
                     for term in normalized:
                         if self.manager.saveTerm(term) == 1:
-                            relation = {'doc':i.name, 'term': term}
-                            self.manager.saveRelation(relation, normalized[term])
+                            relation = {'doc': i.name, 'term': term}
+                            self.manager.saveRelation(
+                                relation, normalized[term])
         self.manager.updateIDF()
 
-    def computeTable (self, queryArray, table, method):
+    def computeTable(self, queryArray, table, method):
         p = Path(self.directory)
         table['Files'] = p.iterdir()
         count = 1
         for query in queryArray:
-            index = 'Q'+str(count)
+            index = 'Q' + str(count)
             normalized = self.normalizer.normalize(query)
-            array=[]
+            array = []
             for file in p.iterdir():
-                #Llamar a método de Producto escalar
-                array.append(randint(0,9))#PETF.sim(file.name, normalized))
+                # Llamar a método de Producto escalar
+                array.append(randint(0, 9))  # PETF.sim(file.name, normalized))
             table[index] = array
             count = count + 1
         return table
@@ -85,10 +87,11 @@ class Controller:
         table = self.computeTable(queryArray, table, 3)
         print(tabulate(table, headers="keys"))
         print()
-        
+
         print("RELEVANCIA: CosenoTFIDF")
         table = self.computeTable(queryArray, table, 4)
         print(tabulate(table, headers="keys"))
+
 
 controller = Controller()
 controller.main()
