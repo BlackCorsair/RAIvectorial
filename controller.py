@@ -48,7 +48,8 @@ class Controller:
                 if self.manager.saveDoc(i.name) == 1:
                     for term in normalized:
                         if self.manager.saveTerm(term) == 1:
-                            relation = {'doc': i.name, 'term': term}
+                            relation = {'doc': i.name,
+                                        'term': term}
                             self.manager.saveRelation(
                                 relation, normalized[term])
         self.manager.updateIDF()
