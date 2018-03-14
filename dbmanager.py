@@ -1,3 +1,4 @@
+#!venv/bin/python
 from pymongo import MongoClient, UpdateOne
 from math import log10
 
