@@ -40,5 +40,6 @@ def calcTF(query, relations, docs):
         except ZeroDivisionError:
             tf_cos_div = 0
             cosTF = 0
-        tf_total.append({'doc': doc['name'], 'scalarTF': cosTF})
+        tf_total.append({'doc': doc['name'], 'cosTF': cosTF,
+                         'scalarTF': tf_sum})
     return tf_total
