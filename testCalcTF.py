@@ -11,3 +11,10 @@ result = sorted(search.calcTF(iquery, m.relations, m.docs),
 
 for r in result:
     print(r)
+
+print("___________________\n\n\n")
+
+result = sorted(search.calcAll(iquery, m.relations, m.docs, m.terms),
+                key=itemgetter('doc'))
+for r in result:
+    print(r)
