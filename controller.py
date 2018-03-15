@@ -6,6 +6,8 @@ from normalizer import Normalizer
 from tabulate import tabulate
 from random import randint
 from collections import OrderedDict
+from operator import itemgetter
+import search
 
 
 class Controller:
@@ -54,45 +56,62 @@ class Controller:
                                 relation, normalized[term])
         self.manager.updateIDF()
 
-    def computeTable(self, queryArray, table, method):
-        p = Path(self.directory)
-        table['Files'] = p.iterdir()
+    def computeTable(self, queryArray, result, table, method):
+        table['Files'] = []
         count = 1
         for query in queryArray:
             index = 'Q' + str(count)
-            normalized = self.normalizer.normalize(query)
-            array = []
-            for file in p.iterdir():
-                # Llamar a método de Producto escalar
-                array.append(randint(0, 9))  # PETF.sim(file.name, normalized))
-            table[index] = array
+            table[index] = []
+            for r in result:
+                table['Files'].append(r['doc'])
+                if method == 1:
+                    # Recuperar resultado de Producto escalar TF
+                    table[index].append(r['scalarTF'])
+                elif method == 2:
+                    # Recuperar resultado de Producto escalar TF IDF
+                    table[index].append(r['scalarTF_IDF'])
+                elif method == 3:
+                    # Recuperar resultado de Coseno TF
+                    table[index].append(r['cosTF'])
+                elif method == 4:
+                    # Recuperar resultado de Coseno TF IDF
+                    table[index].append(r['cosTF_IDF'])
             count = count + 1
+            print(tabulate(table, headers="keys"))
         return table
-
+    
     def displayResults(self):
         queryfile = open('queryfile.txt', 'r')
         queryArray = queryfile.read().splitlines()
         table = OrderedDict()
+        
+        result = 1
+
+        #Compute all calculations
+        for query in queryArray:
+            normalized = self.normalizer.normalize(query)
+            result = sorted(search.calcAll(normalized, self.manager.relations, self.manager.docs, self.manager.terms),key=itemgetter('doc'))
+        print(result)
 
         print("RELEVANCIA: ProductoEscalarTF")
-        table = self.computeTable(queryArray, table, 1)
+        table = self.computeTable(queryArray, result, table, 1)
         print(tabulate(table, headers="keys"))
         print()
 
         print("RELEVANCIA: ProductoEscalarTFIDF")
-        table = self.computeTable(queryArray, table, 2)
+        table = self.computeTable(queryArray, result, table, 2)
         print(tabulate(table, headers="keys"))
         print()
 
         print("RELEVANCIA: CosenoTF")
-        table = self.computeTable(queryArray, table, 3)
+        table = self.computeTable(queryArray, result, table, 3)
         print(tabulate(table, headers="keys"))
         print()
 
         print("RELEVANCIA: CosenoTFIDF")
-        table = self.computeTable(queryArray, table, 4)
+        table = self.computeTable(queryArray, result, table, 4)
         print(tabulate(table, headers="keys"))
-
+        
 
 controller = Controller()
 controller.main()
