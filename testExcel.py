@@ -60,7 +60,7 @@ manager.saveRelation({'doc': "d3", 'term': "madrid"}, 1)
 manager.saveRelation({'doc': "d3", 'term': "ocasion"}, 1)
 manager.saveRelation({'doc': "d3", 'term': "auto"}, 1)
 
-query = {'coche', 'rojo', 'blanca'}
+query = {'coche', 'rojo', 'blanco'}
 
 print("calculating query!")
 
@@ -74,7 +74,7 @@ for r in result:
 print("\n\n____________________________\n\n")
 print("IDF")
 for t in manager.terms.find():
-    print(t['idf'])
+    print(t)
 
 print("\n\n____________________________\n\n")
 print("TF")
