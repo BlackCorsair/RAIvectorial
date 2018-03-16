@@ -57,13 +57,13 @@ class Controller:
         self.manager.updateIDF()
 
     def computeTable(self, queryArray, result, table, method):
-        table['Files'] = []
+        
         count = 1
         for query in queryArray:
             index = 'Q' + str(count)
             table[index] = []
             for r in result:
-                table['Files'].append(r['doc'])
+                table['Files']= Path(self.directory).iterdir()
                 if method == 1:
                     # Recuperar resultado de Producto escalar TF
                     table[index].append(r['scalarTF'])
@@ -77,13 +77,13 @@ class Controller:
                     # Recuperar resultado de Coseno TF IDF
                     table[index].append(r['cosTF_IDF'])
             count = count + 1
-            print(tabulate(table, headers="keys"))
         return table
 
     def displayResults(self):
         queryfile = open('queryfile.txt', 'r')
         queryArray = queryfile.read().splitlines()
         table = OrderedDict()
+        table['Files'] = []
 
         result = 1
 
@@ -94,7 +94,6 @@ class Controller:
                                            self.manager.relations,
                                            self.manager.terms),
                             key=itemgetter('doc'))
-        print(result)
 
         print("RELEVANCIA: ProductoEscalarTF")
         table = self.computeTable(queryArray, result, table, 1)
