@@ -15,7 +15,7 @@ from math import sqrt
 '''
 
 
-def calc(query, docs, relations, terms):
+def calcAll(query, docs, relations, terms):
     calcs = []
     qdivCosTF = sqrt(len(query))
     qdivCos = calcQueryCosDiv(query, terms)

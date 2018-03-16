@@ -79,18 +79,21 @@ class Controller:
             count = count + 1
             print(tabulate(table, headers="keys"))
         return table
-    
+
     def displayResults(self):
         queryfile = open('queryfile.txt', 'r')
         queryArray = queryfile.read().splitlines()
         table = OrderedDict()
-        
+
         result = 1
 
-        #Compute all calculations
+        # Compute all calculations
         for query in queryArray:
             normalized = self.normalizer.normalize(query)
-            result = sorted(search.calcAll(normalized, self.manager.relations, self.manager.docs, self.manager.terms),key=itemgetter('doc'))
+            result = sorted(search.calcAll(normalized, self.manager.docs,
+                                           self.manager.relations,
+                                           self.manager.terms),
+                            key=itemgetter('doc'))
         print(result)
 
         print("RELEVANCIA: ProductoEscalarTF")
@@ -111,7 +114,7 @@ class Controller:
         print("RELEVANCIA: CosenoTFIDF")
         table = self.computeTable(queryArray, result, table, 4)
         print(tabulate(table, headers="keys"))
-        
+
 
 controller = Controller()
 controller.main()
