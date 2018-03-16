@@ -107,11 +107,9 @@ Para cada tupla de documento-consulta en la matriz, se debe mostrar el valor cor
 
 **controller:** se encarga de llamar a las otras clases. Es la clase principal que sirve como controlador
 
-**htmlparser:** se encarga de limpiar los documentos de código HTML y obtener el texto limpio
+**htmlparser:** se encarga de limpiar los documentos de código HTML y obtener el texto limpio.
 
-**tokenizer:** se encarga de separar individualmente las palabras de cada documento ya limpiado por htmlparser
-
-**normalizer:** se encarga de normalizar las palabras que se han separado con tokenizer.
+**normalizer:** se encarga de normalizar las palabras que se han separado con tokenizer, que al ser realizado mediante la librería nltk, se ha implementado esta funcionalidad en esta misma clase, para mantener las dependencias.
 
 Se deben normalizar las palabras en base a:
 
@@ -122,21 +120,11 @@ Se deben normalizar las palabras en base a:
 * *Lematización* - reducir todo a lemas
 * *Stemming* - reducir todo a temas
 
-**indexer:** se encarga de indizar y hacer un recuento de las palabras de cada documento y cada consulta previamente limpiadas y agrupadas por el Normalizer
+**indexer:** se ha delegado esta función en la clase normalizer, por hacer uso de la distribución de frecuencias del nltk por motivos de mejoras de eficiencia.
 
 **dbmanager:** se encarga de gestionar el guardado de los datos (términos, frecuencia, funciones) en base de datos
 
-**vectorialcomputing:** se encarga de computar el algoritmo correspondiente (producto escalar TF, producto escalar TF-IDF, coseno TF o coseno TF-IDF) dado un documento y una consulta
-
-**scalarproducttf:** se encarga de calcular la función de similitud en base al producto escalar con TF
-
-**scalarproducttfidf:** se encarga de calcular la función de similitud en base al producto escalar con TF-IDF
-
-**cosinetf:** se encarga de calcular la función de similitud en base al coseno con TF
-
-**cosinetfidf:** se encarga de calcular la función de similitud en base al coseno con TF-IDF
-
-> Pendiente de determinar si son necesarias más clases
+**search:** se encarga de computar todos los cálculos de los algoritmos correspondientes (producto escalar TF, producto escalar TF-IDF, coseno TF o coseno TF-IDF) dado un documento y una consulta. Se ha optado por hacer todos los cálculos de golpe por motivos de eficiencia con respecto a la recuperación de base de datos.
 
 ## Archivos y carpetas
 
