@@ -126,6 +126,8 @@ Se deben normalizar las palabras en base a:
 
 **search:** se encarga de computar todos los cálculos de los algoritmos correspondientes (producto escalar TF, producto escalar TF-IDF, coseno TF o coseno TF-IDF) dado un documento y una consulta. Se ha optado por hacer todos los cálculos de golpe por motivos de eficiencia con respecto a la recuperación de base de datos.
 
+**cleanDB:** en caso de necesitar limpiar la base de datos para empezar de cero, ejecutar esta clase en lugar de controller y proceder luego normalmente con el setup de controller.
+
 ## Archivos y carpetas
 
 * *queryfile.txt:* archivo txt con las consultas (una por línea)
