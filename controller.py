@@ -62,8 +62,9 @@ class Controller:
         for query in queryArray:
             index = 'Q' + str(count)
             table[index] = []
-            for r in result:
-                table['Files']= Path(self.directory).iterdir()
+            aux = result[query]
+            for r in aux:
+                table['Files']= sorted(Path(self.directory).iterdir())
                 if method == 1:
                     # Recuperar resultado de Producto escalar TF
                     table[index].append(r['scalarTF'])
@@ -85,12 +86,12 @@ class Controller:
         table = OrderedDict()
         table['Files'] = []
 
-        result = 1
+        result = OrderedDict()
 
         # Compute all calculations
         for query in queryArray:
             normalized = self.normalizer.normalize(query)
-            result = sorted(search.calcAll(normalized, self.manager.docs,
+            result[query] = sorted(search.calcAll(normalized, self.manager.docs,
                                            self.manager.relations,
                                            self.manager.terms),
                             key=itemgetter('doc'))
