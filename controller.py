@@ -42,7 +42,7 @@ class Controller:
             path = Path.cwd().joinpath(self.directory +
                                        "/" + i.name)
             try:
-                with path.open('r', encoding='ASCII') as file:
+                with path.open('r') as file:
                     # Parser
                     filetext = self.parser.parse(file)
                     # Normalizer
@@ -95,9 +95,9 @@ class Controller:
         for query in queryArray:
             normalized = self.normalizer.normalize(query)
             result[query] = sorted(search.calcAll(normalized,
-                                   self.manager.docs,
-                                   self.manager.relations,
-                                   self.manager.terms),
+                                                  self.manager.docs,
+                                                  self.manager.relations,
+                                                  self.manager.terms),
                                    key=itemgetter('doc'))
 
         print("RELEVANCIA: ProductoEscalarTF")

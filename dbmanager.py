@@ -130,10 +130,10 @@ class DBManager:
     '''
 
     def updateIDF(self):
-        print("updating the idf value in all terms...")
         total_docs = self.docs.count()
         try:
             for term in self.terms.find():
+                print("Updating IDF for " + term['term'] + "...")
                 idf = log10(total_docs / term['ni'])
                 self.terms.update({'term': term['term']},
                                   {'$set': {'idf': idf}},

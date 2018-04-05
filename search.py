@@ -20,6 +20,7 @@ def calcAll(query, docs, relations, terms):
     qdivCosTF = sqrt(len(query))
     qdivCos = calcQueryCosDiv(query, terms)
     for doc in docs.find():
+        print("Scannig Doc: " + doc['name'])
         # variable initialization
         scalarTF_IDF = 0
         scalarTF = 0
@@ -61,14 +62,15 @@ def calcScalarDivCos(query, doc, relations, terms):
     for r in rel:
         # cosTF
         tf = r['tf']
+        termIDF = terms.find_one({'term': r['term']})['idf']
         divCosTF = divCosTF + tf ** 2
         divCosTF_DF = divCosTF_DF + \
-            (terms.find_one({'term': r['term']})['idf'] * tf) ** 2
+            (termIDF * tf) ** 2
         if r['term'] in query:
             # cosTF
             scalarTF = scalarTF + tf
             # cosTF_IDF
-            idf = terms.find_one({'term': r['term']})['idf']
+            idf = termIDF
             # idf ** 2 = weight (idf * tf) * query_idf
             weight = idf * tf
             scalarTF_IDF = scalarTF_IDF + weight * idf
