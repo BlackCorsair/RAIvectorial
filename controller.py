@@ -4,7 +4,6 @@ from dbmanager import DBManager
 from htmlparser import HTMLParser
 from normalizer import Normalizer
 from tabulate import tabulate
-from random import randint
 from collections import OrderedDict
 from operator import itemgetter
 import search
@@ -36,35 +35,39 @@ class Controller:
     def setup(self):
         print("Found the following files:")
         p = Path(self.directory)
+        number = 0
         for i in p.iterdir():
-            print("Working on file:", i.name)
+            print("[" + str(number) + "] Working on file:", i.name)
+            number += 1
             path = Path.cwd().joinpath(self.directory +
                                        "/" + i.name)
-            with path.open('r') as file:
-                # Parser
-                filetext = self.parser.parse(file)
-                # Normalizer
-                normalized = self.normalizer.normalize(
-                    filetext)
-                # Save to DB
-                if self.manager.saveDoc(i.name) == 1:
-                    for term in normalized:
-                        if self.manager.saveTerm(term) == 1:
-                            relation = {'doc': i.name,
-                                        'term': term}
-                            self.manager.saveRelation(
-                                relation, normalized[term])
+            try:
+                with path.open('r', encoding='ASCII') as file:
+                    # Parser
+                    filetext = self.parser.parse(file)
+                    # Normalizer
+                    normalized = self.normalizer.normalize(
+                        filetext)
+                    # Save to DB
+                    if self.manager.saveDoc(i.name) == 1:
+                        for term in normalized:
+                            if self.manager.saveTerm(term) == 1:
+                                relation = {'doc': i.name,
+                                            'term': term}
+                                self.manager.saveRelation(
+                                    relation, normalized[term])
+            except UnicodeDecodeError:
+                print('The element is not encoded in ASCII.')
         self.manager.updateIDF()
 
     def computeTable(self, queryArray, result, table, method):
-        
         count = 1
         for query in queryArray:
             index = 'Q' + str(count)
             table[index] = []
             aux = result[query]
             for r in aux:
-                table['Files']= sorted(Path(self.directory).iterdir())
+                table['Files'] = sorted(Path(self.directory).iterdir())
                 if method == 1:
                     # Recuperar resultado de Producto escalar TF
                     table[index].append(r['scalarTF'])
@@ -91,10 +94,11 @@ class Controller:
         # Compute all calculations
         for query in queryArray:
             normalized = self.normalizer.normalize(query)
-            result[query] = sorted(search.calcAll(normalized, self.manager.docs,
-                                           self.manager.relations,
-                                           self.manager.terms),
-                            key=itemgetter('doc'))
+            result[query] = sorted(search.calcAll(normalized,
+                                   self.manager.docs,
+                                   self.manager.relations,
+                                   self.manager.terms),
+                                   key=itemgetter('doc'))
 
         print("RELEVANCIA: ProductoEscalarTF")
         table = self.computeTable(queryArray, result, table, 1)
